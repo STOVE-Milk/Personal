@@ -1,7 +1,7 @@
+
+
 jwt:
-  secret:
-    access: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LWluc3BqdC1pbnN0Z32ruqeriwuriuofasjvzxlkfjaosdjfxlguoisdufojsdlfkjsdofjoxivjoigusoidufxofsudfjwelkfjsodgiuasdfljwlekasdfghjkasdfghkasdfghjkasdfghkasdfghkasdfghkasdfghkjqofhsovhxklcvnslkdnfewnnoianwoviensoenovsneivnsoini
-    refresh: and0LWlc3Bq3ByaW5nLWJvb3Qtc2VjdXJpdHktbS1jbG9uZS1iYWNrZW5kLXNwcmluZy1ib290LXNlY3VyaXR5dC1pbnN0Z3JhLWp3dAoc
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LWluc3BqdC1pbnN0Z32ruqeriwuriuofasjvzxlkfjaosdjfxlguoisdufojsdlfkjsdofjoxiv
 
 spring:
   datasource:
@@ -23,6 +23,5 @@ spring:
         use_sql_comments: true
         globally_quoted_identifiers: true
 
-logging:
-  level:
-    com.steam.auth: debug
+server:
+  port: 8081
