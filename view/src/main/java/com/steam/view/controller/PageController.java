@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IndexController {
+public class PageController {
 
     @GetMapping
     public String getIndexPage() {
@@ -14,6 +14,12 @@ public class IndexController {
 
     @GetMapping("/login")
     public String getLoginPage() {
+
         return "login";
+    }
+
+    @GetMapping("/regist")
+    public String getRegistPage() {
+        return "regist";
     }
 }

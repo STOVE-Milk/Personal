@@ -6,10 +6,12 @@
   <!-- Topbar -->
   <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-    <h1>
-      탑
-    </h1>
-
+    <a th:href="@{/}">
+      <img th:src="@{img/stove.png}" style="width: 192px;height: 80px"/>
+    </a>
+    <a th:href="@{/login}">
+      로그인
+    </a>
   </nav>
 
 </th:block>
