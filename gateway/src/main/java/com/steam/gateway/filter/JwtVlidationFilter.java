@@ -33,7 +33,7 @@ public class JwtVlidationFilter implements Filter {
         String path = httpServletRequest.getServletPath();
         String accessToken = "";
 
-        System.out.println(getBody(httpServletRequest));
+        //System.out.println(getBody(httpServletRequest));
 
         if (path.equals("/api/auth/login") || path.equals("/api/auth/regist"))
             chain.doFilter(request, response);
