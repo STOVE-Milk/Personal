@@ -13,9 +13,16 @@ let doAjax = (url, method, data, success, error, complete) => {
         data: JSON.stringify(data),
         dataType: "json",
         success: success,
-        error: error,
+        error: error ? error : (e) => {
+            console.log(e)
+        },
         complete: complete
     })
+}
+
+let setCookie = (name, value, exp) => {
+    let date = new Date(exp);
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
 }
 
 let login = () => {
@@ -28,6 +35,7 @@ let login = () => {
     let success = (response) => {
         console.log("success")
         console.log(response)
+        setCookie("accessToken", response.accessToken, response.exp)
     }
     let error = (error) => {
         console.log(error)
