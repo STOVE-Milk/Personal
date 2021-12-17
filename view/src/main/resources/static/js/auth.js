@@ -10,7 +10,7 @@ let doAjax = (url, method, data, success, error, complete) => {
         url: url,
         type: method,
         contentType: "application/json",
-        data: data,
+        data: JSON.stringify(data),
         dataType: "json",
         success: success,
         error: error,
@@ -36,5 +36,27 @@ let login = () => {
         console.log(result)
     }
 
-    doAjax(url, method, data, success, error, complete)
+    doAjax(url, method, data, success, error, null)
+}
+
+let regist = () => {
+    let url = apiGatewayURI + "/auth/regist"
+    let method = "POST"
+    let data = {
+        "email": $("#email").val(),
+        "password": $("#password").val(),
+        "nickname": $("#nickname").val()
+    }
+    let success = (response) => {
+        console.log("success")
+        console.log(response)
+    }
+    let error = (error) => {
+        console.log(error)
+    }
+    let complete = (result) => {
+        console.log(result)
+    }
+
+    doAjax(url, method, data, success, error, null)
 }

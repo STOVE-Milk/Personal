@@ -6,20 +6,18 @@
 </head>
 <body>
     <h1>회원가입</h1>
-    <form th:action="@{/api/auth/regist}" method="post">
-        <label>
-            이메일 :
-            <input type="text" id="email" name="email" placeholder="email@domain.com">
-        </label> <br>
-        <label>
-            비밀번호 :
-            <input type="password" id="password" name="password">
-        </label> <br>
-        <label>
-            닉네임 :
-            <input type="text" id="nickname" name="nickname" placeholder="fortice">
-        </label> <br>
-        <input type="submit" value="회원가입">
-    </form>
+    <label>
+        이메일 :
+        <input type="text" id="email" name="email" placeholder="email@domain.com">
+    </label> <br>
+    <label>
+        비밀번호 :
+        <input type="password" id="password" name="password">
+    </label> <br>
+    <label>
+        닉네임 :
+        <input type="text" id="nickname" name="nickname" placeholder="fortice">
+    </label> <br>
+    <button onclick="regist()"> 회원가입 </button>
 </body>
 </html>
