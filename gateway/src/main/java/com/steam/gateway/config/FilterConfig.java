@@ -19,7 +19,7 @@ public class FilterConfig {
         FilterRegistrationBean<JwtVlidationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtVlidationFilter(jwtUtil));
         registrationBean.setOrder(1);
-        registrationBean.addUrlPatterns("/api/**");
+//        registrationBean.addUrlPatterns("/api/**");
         return registrationBean;
     }
 }
