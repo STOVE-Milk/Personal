@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,7 @@ public class ManagementService {
                 .build();
     }
 
+    @Transactional
     public String patchUserRole(PatchRoleRequest request) {
         User user = userRepository.findUserById(request.getId())
                 .orElseThrow(RuntimeException::new);
@@ -45,6 +47,7 @@ public class ManagementService {
         return "변경 성공";
     }
 
+    @Transactional
     public String deleteUser(Integer id) {
         User user = userRepository.findUserById(id)
                 .orElseThrow(RuntimeException::new);
