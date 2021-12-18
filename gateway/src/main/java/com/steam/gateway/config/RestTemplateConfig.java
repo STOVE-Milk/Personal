@@ -1,5 +1,6 @@
 package com.steam.gateway.config;
 
+import com.steam.gateway.exception.RestTemplateErrorHandler;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class RestTemplateConfig {
                 .setConnectTimeout(Duration.ofMillis(5000)) // connection-timeout
                 .setReadTimeout(Duration.ofMillis(5000)) // read-timeout
                 .additionalMessageConverters(new StringHttpMessageConverter(StandardCharsets.UTF_8))
+                .errorHandler(new RestTemplateErrorHandler())
                 .build();
     }
 }
