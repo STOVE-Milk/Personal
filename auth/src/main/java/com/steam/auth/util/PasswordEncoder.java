@@ -13,7 +13,7 @@ public class PasswordEncoder {
                 .build();
     }
 
-    public static Boolean match(String password, String salt) {
-        return BCrypt.checkpw(password, salt);
+    public static Boolean match(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
     }
 }

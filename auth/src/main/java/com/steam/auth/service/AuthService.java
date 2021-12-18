@@ -4,13 +4,13 @@ import com.steam.auth.dto.LoginRequest;
 import com.steam.auth.dto.RegistRequest;
 import com.steam.auth.dto.Token;
 import com.steam.auth.entity.User;
-import com.steam.auth.entity.UserBuilder;
+import com.steam.auth.exception.custom.AuthFailedException;
+import com.steam.auth.exception.custom.EmailDuplicatedException;
 import com.steam.auth.jwt.JwtUtil;
 import com.steam.auth.repository.AuthRepository;
 import com.steam.auth.util.HashedPassword;
 import com.steam.auth.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,9 +23,10 @@ public class AuthService {
 
     public Token login(LoginRequest request) {
         User user = authRepository.findUserByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(AuthFailedException::new);
 
-        if(!PasswordEncoder.match(user.getPassword(), user.getSalt())) {
+        if(!PasswordEncoder.match(request.getPassword(), user.getPassword())) {
+            throw new AuthFailedException();
         }
 
         return jwtUtil.createAccessToken(user);
@@ -35,8 +36,7 @@ public class AuthService {
         Optional<User> user = authRepository.findUserByEmail(request.getEmail());
 
         if(user.isPresent()) {
-            //이미 유저가 존재합니다.
-            return false;
+            throw new EmailDuplicatedException();
         }
 
         HashedPassword password = PasswordEncoder.hash(request.getPassword());
@@ -56,11 +56,6 @@ public class AuthService {
     public Boolean isDuplicated(String email) {
         Optional<User> user = authRepository.findUserByEmail(email);
 
-        if(user.isPresent()) {
-            //이미 유저가 존재합니다.
-            return true;
-        }
-
-        return false;
+        return user.isPresent();
     }
 }

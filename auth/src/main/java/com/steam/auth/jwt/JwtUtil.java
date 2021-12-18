@@ -51,6 +51,7 @@ public class JwtUtil {
                 .compact();
 
         return Token.builder()
+                .expiration(expireTime.getTime())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
