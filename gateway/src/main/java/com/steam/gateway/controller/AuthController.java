@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
-    private final String authServerURL = "http://localhost:8081/auth";
+    private final String authServerUri = "http://localhost:8081/auth";
     private final ApiService<ResponseEntity<Object>> apiService;
 
     public AuthController(ApiService<ResponseEntity<Object>> apiService) {
@@ -26,13 +26,13 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<byte[]> login(@RequestHeader MultiValueMap<String, String> header, @RequestBody byte[] body) {
-        return apiService.post(authServerURL + "/login", header, body);
+        return apiService.post(authServerUri + "/login", header, body);
     }
 
     @PostMapping("/regist")
     @ResponseBody
     public ResponseEntity<byte[]> regist(@RequestHeader MultiValueMap<String, String> header, @RequestBody byte[] body) {
-        return apiService.post(authServerURL + "/regist", header, body);
+        return apiService.post(authServerUri + "/regist", header, body);
     }
 //    @PostMapping("/proxy/**")
 //    public ResponseEntity<byte[]> proxy(@RequestHeader MultiValueMap<String, String> header, @RequestBody byte[] body) throws IOException, URISyntaxException {

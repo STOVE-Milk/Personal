@@ -10,6 +10,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class JwtVlidationFilter implements Filter {
@@ -30,26 +33,32 @@ public class JwtVlidationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         Cookie[] cookies = httpServletRequest.getCookies();
+
+        List<String> skippedPath = List.of("/auth/login", "/auth/regist");
         String path = httpServletRequest.getServletPath();
+        String redirectPath = "/login?requestURI=" + httpServletRequest.getRequestURI();
+
+        String accessTokenName = "accessToken";
         String accessToken = "";
 
-        //System.out.println(getBody(httpServletRequest));
+        System.out.println(cookies == null);
 
-        if (path.equals("/api/auth/login") || path.equals("/api/auth/regist"))
+        if (skippedPath.contains(path))
             chain.doFilter(request, response);
         else if (cookies == null)
-            httpServletResponse.sendRedirect("/login?requestURI=" + httpServletRequest.getRequestURI());
+            httpServletResponse.sendRedirect(redirectPath);
         else {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("accessToken")) {
+                if (cookie.getName().equals(accessTokenName)) {
                     accessToken = cookie.getValue();
+                    System.out.println(accessToken);
                     break;
                 }
             }
 
             if (accessToken.isBlank() || !jwtUtil.isValid(accessToken)) {
                 for (Cookie cookie : cookies) cookie.setMaxAge(0);
-                httpServletResponse.sendRedirect("/login?requestURI=" + httpServletRequest.getRequestURI());
+                httpServletResponse.sendRedirect(redirectPath);
                 return;
             }
 
