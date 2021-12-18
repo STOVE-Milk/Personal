@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class ManagementController {
     private final ManagementService managementService;
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     @ResponseBody
     public ResponseEntity<UserPageResponse> getUserPage(@RequestParam Integer page) {
         if(page > 0)
@@ -22,7 +22,7 @@ public class ManagementController {
         return ResponseEntity.ok(managementService.getUserPage(0));
     }
 
-    @PatchMapping("/role")
+    @PatchMapping("/users/{userId}")
     @ResponseBody
     public ResponseEntity<String> patchUserRole(@RequestBody PatchRoleRequest request) {
         return ResponseEntity.ok(managementService.patchUserRole(request));
