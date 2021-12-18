@@ -4,6 +4,7 @@ import com.steam.management.dto.PatchRoleRequest;
 import com.steam.management.dto.UserDto;
 import com.steam.management.dto.UserPageResponse;
 import com.steam.management.entity.User;
+import com.steam.management.exception.custom.NotFoundUserException;
 import com.steam.management.repository.UserRepository;
 import com.steam.management.util.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class ManagementService {
     public UserPageResponse getUserPage(Integer page) {
         PageRequest pageRequest = PageRequest.of(page, 20);
         Page<User> userPage = userRepository.findAll(pageRequest);
+
         List<UserDto> users = userPage.getContent().stream()
                 .map(UserDto::of)
                 .collect(Collectors.toList());
@@ -38,7 +40,7 @@ public class ManagementService {
     @Transactional
     public String patchUserRole(PatchRoleRequest request) {
         User user = userRepository.findUserById(request.getId())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(NotFoundUserException::new);
         if(request.getRole().equals("SPECIAL"))
             user.setAdmin();
         else
@@ -50,9 +52,9 @@ public class ManagementService {
     @Transactional
     public String deleteUser(Integer id) {
         User user = userRepository.findUserById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(NotFoundUserException::new);
 
-
+        userRepository.delete(user);
         return "삭제 성공";
     }
 }
