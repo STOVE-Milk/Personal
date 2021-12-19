@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LWluc3BqdC1pbnN0Z32ruqeriwuriuofasjvzxlkfjaosdjfxlguoisdufojsdlfkjsdofjoxiv
+
+logging:
+  level:
+    org.springframework: DEBUG
+
