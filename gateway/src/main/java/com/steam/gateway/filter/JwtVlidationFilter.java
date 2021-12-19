@@ -10,10 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import java.util.stream.Collectors;
 
 public class JwtVlidationFilter implements Filter {
     private final JwtUtil jwtUtil;
@@ -36,9 +33,8 @@ public class JwtVlidationFilter implements Filter {
 
         List<String> skippedPath = List.of("/auth/login", "/auth/regist");
         String path = httpServletRequest.getServletPath();
-        String redirectPath = "/login?requestURI=" + httpServletRequest.getRequestURI();
+        String redirectPath = "http://localhost/login?requestURI=" + httpServletRequest.getRequestURI();
 
-        String accessTokenName = "accessToken";
         String accessToken = "";
 
         System.out.println(cookies == null);
@@ -48,13 +44,7 @@ public class JwtVlidationFilter implements Filter {
         else if (cookies == null)
             httpServletResponse.sendRedirect(redirectPath);
         else {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(accessTokenName)) {
-                    accessToken = cookie.getValue();
-                    System.out.println(accessToken);
-                    break;
-                }
-            }
+            accessToken = jwtUtil.getAccessTokenByCookies(cookies);
 
             if (accessToken.isBlank() || !jwtUtil.isValid(accessToken)) {
                 for (Cookie cookie : cookies) cookie.setMaxAge(0);

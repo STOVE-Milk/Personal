@@ -1,16 +1,14 @@
 package com.steam.gateway.jwt;
 
 import com.steam.gateway.exception.UseJwt;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import java.security.Key;
 
 @Slf4j
@@ -37,5 +35,19 @@ public class JwtUtil {
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+    @UseJwt
+    public Boolean isAdmin(String token) {
+        Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+        return claims.getBody().get("type", String.class).equals("SPECIAL");
+    }
+
+    public String getAccessTokenByCookies(Cookie[] cookies) {
+        for (Cookie cookie : cookies)
+            if (cookie.getName().equals("accessToken"))
+                return cookie.getValue();
+
+        return "";
     }
 }
