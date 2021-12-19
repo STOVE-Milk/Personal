@@ -1,4 +1,3 @@
-auth/
-gateway/
-view/
-deleted-user.txt
+**/build/
+**/.idea/
+**/bin/
