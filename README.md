@@ -1,7 +1,7 @@
 # Personal
   
 # 아키텍처
-  ![image](https://user-images.githubusercontent.com/20275668/146684658-c584c165-cd1d-4b28-80e0-1d8c0e7814a8.png)
+  ![image](https://user-images.githubusercontent.com/20275668/146694619-14c48ff7-3ad3-41c0-906e-86db5c4695b5.png)
   - 모두 Spring Boot 서버로 구현
   - View 서버
     - Thymeleaf
@@ -37,13 +37,14 @@
     - 뒤에 두 기능은 아직 미연결
     - 유저 리스트는 특정 인원만큼 페이지를 나누려고 했음
       - 쿼리를 순수하게 작성하려다가 JPA의 Page를 이용해 쉽게 구현
-      - 20명씩으로 해놨지만, 1000만명이라고 했을 때에는 다른 필터링이 필요할 것 같음
-        - 검색기능, 권한별 필터링, 인증여부별 필터링
+      - 20명씩으로 해놨지만, 1000만명이라고 했을 때에는 페이지별 인원을 늘리고, 다른 필터링이 필요할 것 같음
+        - 검색기능, 권한별 필터링, 인증여부별 필터링, 정렬
     - Exception Handler로 예외 처리
-
+      
 
 # DB Schema
 ![image](https://user-images.githubusercontent.com/20275668/146685302-f1babce9-378e-4075-8e7d-12fba64c0110.png)
 
 # API
+
 
