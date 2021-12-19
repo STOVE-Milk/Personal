@@ -12,10 +12,19 @@ let doAjax = (url, method, data, success, error, complete) => {
         contentType: "application/json",
         data: data ? JSON.stringify(data) : null,
         dataType: "json",
+        beforeSend: (xhr) => {
+            xhr.setRequestHeader ("Authorization", getAccessToken())
+        },
         success: success,
         error: error,
         complete: complete
     })
+}
+
+let getAccessToken = () => {
+    if(document.cookie == null)
+        return "";
+    return "Bearer " + document.cookie.split(';')[0].split('=')[1]
 }
 
 let getUserDatas = (page) => {

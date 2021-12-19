@@ -15,7 +15,7 @@ public class PageController {
         this.jwtUtil = jwtUtil;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String getIndexPage(Model model, HttpServletRequest request) {
         setAuthorization(model, request);
         return "index";

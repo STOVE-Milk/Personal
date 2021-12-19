@@ -10,8 +10,11 @@ let doAjax = (url, method, data, success, error, complete) => {
         url: url,
         type: method,
         contentType: "application/json",
-        data: JSON.stringify(data),
+        data: data ? JSON.stringify(data) : null,
         dataType: "json",
+        beforeSend: (xhr) => {
+            xhr.setRequestHeader ("Authorization", getAccessToken())
+        },
         success: success,
         error: error ? error : (e) => {
             console.log(e)
@@ -22,8 +25,14 @@ let doAjax = (url, method, data, success, error, complete) => {
 
 let setCookie = (name, value, exp) => {
     let date = new Date(exp);
-    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + "; domain=localhost;path=/"
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + "; domain=localhost; path=/"
     console.log(document.cookie)
+}
+
+let getAccessToken = () => {
+    if(document.cookie == null)
+        return "";
+    return "Bearer " + document.cookie.split(';')[0].split('=')[1]
 }
 
 let login = () => {
@@ -38,7 +47,7 @@ let login = () => {
         console.log(response)
         // console.log(status)
         // console.log(xhr)
-        // await xhr.getResponseHeader('Set-Cookie');
+        // xhr.getResponseHeader('Set-Cookie');
         setCookie("accessToken", response.accessToken, response.exp)
         // await goBackPage()
     }
