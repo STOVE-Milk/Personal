@@ -8,6 +8,6 @@ server:
 jwt:
   secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LWluc3BqdC1pbnN0Z32ruqeriwuriuofasjvzxlkfjaosdjfxlguoisdufojsdlfkjsdofjoxiv
 
-#spring:
-#  thymeleaf:
-#    cache: false
+spring:
+  thymeleaf:
+    cache: false
