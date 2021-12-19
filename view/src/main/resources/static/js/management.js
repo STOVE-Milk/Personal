@@ -1,32 +1,5 @@
 const managementServerUri = "http://localhost:8080/management"
 
-let doAjax = (url, method, data, success, error, complete) => {
-    //storage에서 쿠키 가져오기
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        crossDomain: true,
-        url: url,
-        type: method,
-        contentType: "application/json",
-        data: data ? JSON.stringify(data) : null,
-        dataType: "json",
-        beforeSend: (xhr) => {
-            xhr.setRequestHeader ("Authorization", getAccessToken())
-        },
-        success: success,
-        error: error,
-        complete: complete
-    })
-}
-
-let getAccessToken = () => {
-    if(document.cookie == null)
-        return "";
-    return "Bearer " + document.cookie.split(';')[0].split('=')[1]
-}
-
 let getUserDatas = (page) => {
     let url = managementServerUri + "/users?page=" + (page > 0 ? page : 0)
     let method = "GET"

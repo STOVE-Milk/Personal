@@ -1,40 +1,5 @@
 const authServerUri = "http://localhost:8080/auth"
 
-let doAjax = (url, method, data, success, error, complete) => {
-    //storage에서 쿠키 가져오기
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        crossDomain: true,
-        url: url,
-        type: method,
-        contentType: "application/json",
-        data: data ? JSON.stringify(data) : null,
-        dataType: "json",
-        beforeSend: (xhr) => {
-            xhr.setRequestHeader ("Authorization", getAccessToken())
-        },
-        success: success,
-        error: error ? error : (e) => {
-            console.log(e)
-        },
-        complete: complete
-    })
-}
-
-let setCookie = (name, value, exp) => {
-    let date = new Date(exp);
-    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + "; domain=localhost; path=/"
-    console.log(document.cookie)
-}
-
-let getAccessToken = () => {
-    if(document.cookie == null)
-        return "";
-    return "Bearer " + document.cookie.split(';')[0].split('=')[1]
-}
-
 let login = () => {
     let url = authServerUri + "/login"
     let method = "POST"
@@ -47,7 +12,8 @@ let login = () => {
         console.log(response)
         // console.log(status)
         // console.log(xhr)
-        // xhr.getResponseHeader('Set-Cookie');
+        //xhr.getResponseHeader('Set-Cookie');
+        localStorage.setItem("accessToken", response.refreshToken)
         setCookie("accessToken", response.accessToken, response.exp)
         // await goBackPage()
     }
@@ -87,8 +53,8 @@ let goBackPage = () => {
     queries = window.location.search.substr(1).split('&');
     if(queries.length > 0) {
         url = queries.split('=')[1];
-        location.reload("url")
+        location.href(url)
     }
     else
-        location.reload('/')
+        location.href('/')
 }
