@@ -1,4 +1,4 @@
-const apiGatewayURI = "http://localhost:8080/api"
+const authServerUri = "http://localhost:8080/auth"
 
 let doAjax = (url, method, data, success, error, complete) => {
     //storage에서 쿠키 가져오기
@@ -22,11 +22,12 @@ let doAjax = (url, method, data, success, error, complete) => {
 
 let setCookie = (name, value, exp) => {
     let date = new Date(exp);
-    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + "; domain=localhost;path=/"
+    console.log(document.cookie)
 }
 
 let login = () => {
-    let url = apiGatewayURI + "/auth/login"
+    let url = authServerUri + "/login"
     let method = "POST"
     let data = {
         "email": $("#email").val(),
@@ -35,10 +36,14 @@ let login = () => {
     let success = (response) => {
         console.log("success")
         console.log(response)
+        // console.log(status)
+        // console.log(xhr)
+        // await xhr.getResponseHeader('Set-Cookie');
         setCookie("accessToken", response.accessToken, response.exp)
+        // await goBackPage()
     }
     let error = (error) => {
-        console.log(error)
+        alert(error)
     }
     let complete = (result) => {
         console.log(result)
@@ -48,7 +53,7 @@ let login = () => {
 }
 
 let regist = () => {
-    let url = apiGatewayURI + "/auth/regist"
+    let url = authServerUri + "/regist"
     let method = "POST"
     let data = {
         "email": $("#email").val(),
@@ -60,11 +65,21 @@ let regist = () => {
         console.log(response)
     }
     let error = (error) => {
-        console.log(error)
+        alert(error)
     }
     let complete = (result) => {
         console.log(result)
     }
 
     doAjax(url, method, data, success, error, null)
+}
+
+let goBackPage = () => {
+    queries = window.location.search.substr(1).split('&');
+    if(queries.length > 0) {
+        url = queries.split('=')[1];
+        location.reload("url")
+    }
+    else
+        location.reload('/')
 }

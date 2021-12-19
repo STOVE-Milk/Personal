@@ -1,3 +1,5 @@
+const managementServerUri = "http://localhost:8080/management"
+
 let doAjax = (url, method, data, success, error, complete) => {
     //storage에서 쿠키 가져오기
     $.ajax({
@@ -8,7 +10,7 @@ let doAjax = (url, method, data, success, error, complete) => {
         url: url,
         type: method,
         contentType: "application/json",
-        data: JSON.stringify(data),
+        data: data ? JSON.stringify(data) : null,
         dataType: "json",
         success: success,
         error: error,
@@ -17,16 +19,18 @@ let doAjax = (url, method, data, success, error, complete) => {
 }
 
 let getUserDatas = (page) => {
-    let url = "http://localhost:8080/api/user"
+    let url = managementServerUri + "/users?page=" + (page > 0 ? page : 0)
     let method = "GET"
-    let data = {
-        page: page
-    }
     let success = async (result) => {
         await resetTable()
         await updateTable(result)
     }
-    doAjax(url,method,data,success,null,null)
+
+    let error = (e) => {
+        console.log(e)
+        alert(e.message)
+    }
+    doAjax(url,method,null ,success,error,null)
 }
 
 let updateTable = (datas) => {

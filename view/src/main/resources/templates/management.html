@@ -3,16 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script th:src="@{/js/management.js}"></script>
 </head>
 <body>
-    <h1>관리자 페이지</h1>
-    <table id="user-list-table">
-        <tr>
-            <th>유저 이름</th>
-            <th>유저 이메일</th>
-            <th>유저 권한</th>
-            <th>이메일 인증</th>
-        </tr>
-    </table>
+    <th:block th:replace="/fragments/top :: topbarFragment(${isLogin})"></th:block>
+    <div th:if="${isAdmin}">
+        <h1>관리자 페이지</h1>
+        <table id="user-list-table">
+            <tr>
+                <th>유저 이름</th>
+                <th>유저 이메일</th>
+                <th>유저 권한</th>
+                <th>이메일 인증</th>
+            </tr>
+        </table>
+        <script>
+            getUserDatas(0)
+        </script>
+    </div>
+    <div th:unless="${isAdmin}">
+        <script>
+            console.log("권한이 없습니다.")
+            history.back()
+        </script>
+    </div>
 </body>
 </html>

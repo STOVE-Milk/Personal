@@ -1,7 +1,13 @@
-
 logging:
   level:
     org.springframework.web: DEBUG
     org.hibernate: ERROR
 server:
   port: 80
+
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LWluc3BqdC1pbnN0Z32ruqeriwuriuofasjvzxlkfjaosdjfxlguoisdufojsdlfkjsdofjoxiv
+
+#spring:
+#  thymeleaf:
+#    cache: false

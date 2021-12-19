@@ -1,2 +1,3 @@
-/auth
-/gateway
+auth/
+gateway/
+management/
