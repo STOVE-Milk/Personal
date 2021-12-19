@@ -16,8 +16,8 @@ let doAjax = (url, method, data, success, error, complete) => {
         },
         beforeSend: (xhr) => {
             xhr.setRequestHeader("Authorization", getAccessToken())
-            console.log("xhr\n" + getAccessToken() + '\n')
-            console.log(xhr)
+            // console.log("xhr\n" + getAccessToken() + '\n')
+            // console.log(xhr)
         },
         success: success,
         error: error ? error : (e) => {
