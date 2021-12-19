@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script th:src="@{/js/ajax.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+</head>
+<body>
+    <script>
+        if(document.cookie)
+            location.href('http://localhost/')
+    </script>
+    <a th:href="@{/}"><H1>Home</H1></a>
+    <h1>로그인</h1>
+    <label>
+        이메일 :
+        <input type="text" id="email" name="email" placeholder="email@domain.com">
+    </label> <br>
+    <label>
+        비밀번호 :
+        <input type="password" id="password" name="password">
+    </label> <br>
+    <button onclick="login()">로그인</button>
+</body>
+</html>
