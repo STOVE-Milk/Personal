@@ -25,8 +25,7 @@ public class PermissionCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Cookie[] cookies = ((HttpServletRequest)request).getCookies();
-        String accessToken = jwtUtil.getAccessTokenByCookies(cookies);
+        String accessToken = jwtUtil.getAccessTokenInRequest((HttpServletRequest) request);
 
         if(jwtUtil.isAdmin(accessToken))
             chain.doFilter(request, response);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 
 @Slf4j
@@ -49,5 +50,11 @@ public class JwtUtil {
                 return cookie.getValue();
 
         return "";
+    }
+
+    public String getAccessTokenInRequest(HttpServletRequest request) {
+        return request
+                .getHeader("Authorization")
+                .substring("Bearer ".length());
     }
 }

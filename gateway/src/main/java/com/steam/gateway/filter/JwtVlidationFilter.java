@@ -29,7 +29,6 @@ public class JwtVlidationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        Cookie[] cookies = httpServletRequest.getCookies();
 
         List<String> skippedPath = List.of("/auth/login", "/auth/regist");
         String path = httpServletRequest.getServletPath();
@@ -37,17 +36,12 @@ public class JwtVlidationFilter implements Filter {
 
         String accessToken = "";
 
-        System.out.println(cookies == null);
-
         if (skippedPath.contains(path))
             chain.doFilter(request, response);
-        else if (cookies == null)
-            httpServletResponse.sendRedirect(redirectPath);
         else {
-            accessToken = jwtUtil.getAccessTokenByCookies(cookies);
+            accessToken = jwtUtil.getAccessTokenInRequest(httpServletRequest);
 
             if (accessToken.isBlank() || !jwtUtil.isValid(accessToken)) {
-                for (Cookie cookie : cookies) cookie.setMaxAge(0);
                 httpServletResponse.sendRedirect(redirectPath);
                 return;
             }
