@@ -53,6 +53,9 @@ public class JwtUtil {
     }
 
     public String getAccessTokenInRequest(HttpServletRequest request) {
+        System.out.println(request.getCookies() == null);
+        System.out.println(request.getHeader("Authorization"));
+
         return request
                 .getHeader("Authorization")
                 .substring("Bearer ".length());
