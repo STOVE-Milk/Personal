@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:fragment="topbarFragment(isLogin)">
+  <!-- Topbar -->
+  <script>
+    let logout = () => {
+      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+      location.reload()
+    }
+  </script>
+
+  <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <a th:href="@{/}">
+      <img th:src="@{img/stove.png}" style="width: 192px;height: 80px"/>
+    </a>
+    <button th:if="${isLogin}" th:href="@{/logout}" onclick="logout()">
+      로그아웃
+    </button>
+    <a th:unless="${isLogin}" th:href="@{/login}">
+      로그인
+    </a>
+  </nav>
+
+</th:block>
+</html>
