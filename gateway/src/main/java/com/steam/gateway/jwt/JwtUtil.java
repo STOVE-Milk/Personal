@@ -22,18 +22,22 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
-    @UseJwt
+    //@UseJwt
     public Boolean isValid(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            e.getStackTrace();
             log.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
+            e.getStackTrace();
             log.info("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
+            e.getStackTrace();
             log.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
+            e.getStackTrace();
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
@@ -72,18 +76,12 @@ public class JwtUtil {
 
 
     public String getAccessTokenInRequest(HttpServletRequest request) {
-        String token = "";
+        System.out.println(request.getHeader("Authorization"));
         try {
-            token = request.getHeader("Authorization").substring("Bearer ".length());
+            return request.getHeader("Authorization").substring("Bearer ".length());
         }
         catch (RuntimeException ignored) {
-
+            return "";
         }
-        if (token.isBlank()) token = getAccessTokenInQueryString(request.getQueryString());
-        if (token.isBlank()) token = getAccessTokenByCookies(request.getCookies());
-
-        System.out.println(token);
-
-        return token;
     }
 }

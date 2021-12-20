@@ -10,12 +10,9 @@ let login = () => {
     let success = (response) => {
         console.log("success")
         console.log(response)
-        // console.log(status)
-        // console.log(xhr)
         //xhr.getResponseHeader('Set-Cookie');
-        localStorage.setItem("accessToken", response.refreshToken)
         setCookie("accessToken", response.accessToken, response.exp)
-        // await goBackPage()
+        goBackPage()
     }
     let error = (error) => {
         alert(error)
@@ -50,11 +47,13 @@ let regist = () => {
 }
 
 let goBackPage = () => {
-    queries = window.location.search.substr(1).split('&');
+    queries = window.location.search.substr(1)
+    if(queries.indexOf("&") !== -1)
+        queries = queries.split('&');
     if(queries.length > 0) {
         url = queries.split('=')[1];
-        location.href(url)
+        location.replace('http://localhost/' + url)
     }
     else
-        location.href('/')
+        location.replace('http://localhost/')
 }
