@@ -33,7 +33,9 @@ public class JwtUtil {
         Map<String, Object> payload = new HashMap<>();
         payload.put("code", user.getId());
         payload.put("name", user.getNickname());
-        payload.put("type", user.getRole() ? "NORMAL" : "SPECIAL");
+        payload.put("type", user.getRole() ? "SPECIAL" : "NORMAL");
+
+        System.out.println(user.getRole());
 
         long now = (new Date()).getTime();
         Date expireTime = new Date(now + ACCESS_EXPIRE_TIME);
