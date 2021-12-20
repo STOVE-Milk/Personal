@@ -34,12 +34,6 @@ let setCookie = (name, value, exp) => {
     console.log(document.cookie)
 }
 
-let setCookieTest = (name, value, exp) => {
-    let date = new Date(exp);
-    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + "; path=/;" + "domain=localhost"
-    console.log(document.cookie)
-}
-
 let getAccessToken = () => {
     if(document.cookie == null)
         return "";

@@ -1,7 +1,7 @@
 const managementServerUri = "http://localhost:8080/management"
 
 let getUserDatas = (page) => {
-    let url = managementServerUri + "/users?page=" + (page > 0 ? page : 0) + "&Authorization=" + getAccessToken().substr("Bearer ".length)
+    let url = managementServerUri + "/users?page=" + (page > 0 ? page : 0)
     let method = "GET"
     let success = (result) => {
         console.log(result)
@@ -10,7 +10,7 @@ let getUserDatas = (page) => {
     }
     let error = (e) => {
         console.log(e)
-        alert(e)
+        alert(e.status)
     }
     doAjax(url,method,null ,success,error,null)
 }

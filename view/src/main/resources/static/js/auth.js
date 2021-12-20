@@ -10,14 +10,9 @@ let login = () => {
     let success = (response) => {
         console.log("success")
         console.log(response)
-        // console.log(status)
-        // console.log(xhr)
         //xhr.getResponseHeader('Set-Cookie');
-        localStorage.setItem("accessToken", response.refreshToken)
         setCookie("accessToken", response.accessToken, response.exp)
-        setCookieTest("test", response.accessToken, response.exp)
-        // goBackPage()
-        // await goBackPage()
+        goBackPage()
     }
     let error = (error) => {
         alert(error)
