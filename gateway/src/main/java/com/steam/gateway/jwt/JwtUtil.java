@@ -28,12 +28,16 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            e.getStackTrace();
             log.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
+            e.getStackTrace();
             log.info("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
+            e.getStackTrace();
             log.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
+            e.getStackTrace();
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
@@ -72,6 +76,7 @@ public class JwtUtil {
 
 
     public String getAccessTokenInRequest(HttpServletRequest request) {
+        System.out.println(request.getHeader("Authorization"));
         try {
             return request.getHeader("Authorization").substring("Bearer ".length());
         }

@@ -40,7 +40,6 @@ public class JwtVlidationFilter implements Filter {
             chain.doFilter(request, response);
         else {
             accessToken = jwtUtil.getAccessTokenInRequest(httpServletRequest);
-
             if (accessToken.isBlank() || !jwtUtil.isValid(accessToken)) {
                 //CORS redirect 금지
 //                httpServletResponse.sendRedirect(redirectPath);
