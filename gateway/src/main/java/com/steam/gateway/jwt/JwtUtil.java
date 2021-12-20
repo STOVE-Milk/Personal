@@ -72,18 +72,11 @@ public class JwtUtil {
 
 
     public String getAccessTokenInRequest(HttpServletRequest request) {
-        String token = "";
         try {
-            token = request.getHeader("Authorization").substring("Bearer ".length());
+            return request.getHeader("Authorization").substring("Bearer ".length());
         }
         catch (RuntimeException ignored) {
-
+            return "";
         }
-        if (token.isBlank()) token = getAccessTokenInQueryString(request.getQueryString());
-        if (token.isBlank()) token = getAccessTokenByCookies(request.getCookies());
-
-        System.out.println(token);
-
-        return token;
     }
 }

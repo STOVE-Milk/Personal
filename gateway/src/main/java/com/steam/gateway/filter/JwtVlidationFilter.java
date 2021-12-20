@@ -32,7 +32,7 @@ public class JwtVlidationFilter implements Filter {
 
         List<String> skippedPath = List.of("/auth/login", "/auth/regist");
         String path = httpServletRequest.getServletPath();
-        String redirectPath = "http://localhost/login?requestURI=" + httpServletRequest.getRequestURI();
+        //String redirectPath = "http://localhost/login?requestURI=" + httpServletRequest.getRequestURI();
 
         String accessToken = "";
 
@@ -42,7 +42,8 @@ public class JwtVlidationFilter implements Filter {
             accessToken = jwtUtil.getAccessTokenInRequest(httpServletRequest);
 
             if (accessToken.isBlank() || !jwtUtil.isValid(accessToken)) {
-                httpServletResponse.sendRedirect(redirectPath);
+                //CORS redirect 금지
+//                httpServletResponse.sendRedirect(redirectPath);
                 return;
             }
 
