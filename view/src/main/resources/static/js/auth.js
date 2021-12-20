@@ -15,7 +15,8 @@ let login = () => {
         //xhr.getResponseHeader('Set-Cookie');
         localStorage.setItem("accessToken", response.refreshToken)
         setCookie("accessToken", response.accessToken, response.exp)
-        goBackPage()
+        setCookieTest("test", response.accessToken, response.exp)
+        // goBackPage()
         // await goBackPage()
     }
     let error = (error) => {
