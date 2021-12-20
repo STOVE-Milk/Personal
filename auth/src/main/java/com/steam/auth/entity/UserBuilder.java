@@ -9,7 +9,6 @@ public final class UserBuilder{
     private Integer b_id;
     private String b_email;
     private String b_password;
-    private String b_salt;
     private String b_nickname;
     private Boolean b_role;
     private Boolean b_verified;
@@ -27,11 +26,6 @@ public final class UserBuilder{
 
     public UserBuilder password(String password) {
         this.b_password = password;
-        return this;
-    }
-
-    public UserBuilder salt(String salt) {
-        this.b_salt = salt;
         return this;
     }
 
@@ -58,6 +52,6 @@ public final class UserBuilder{
     public User build(){
         if(this.b_role == null) this.b_role = false;
         if(this.b_verified == null) this.b_verified = false;
-        return new User(b_id, b_email, b_password, b_salt, b_nickname, b_role, b_verified, b_code);
+        return new User(b_id, b_email, b_password, b_nickname, b_role, b_verified, b_code);
     }
 }
