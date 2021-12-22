@@ -8,7 +8,10 @@
     - 요청에 대해 HTML 파일과 Ajax로 API를 요청할 수 있는 JS 파일 전송
       - 서버 내부에서 RestTemplate를 이용해 처리하려다가 React를 모방해서 비동기적 요청을 가능한 선에서 하고싶어서 이런 방식을 선택
       - 쿠키와 헤더 설정 시 서버에서 Null로 뜨는 문제를 겪는 중 (Query string으로 토큰을 날려 임시적으로 해결)
-        - Wireshark로 요청 패킷을 봤을 때, 쿠키 값은 제대로 들어있음
+        - CORS 설정이 미흡했고, Filter 설정이 잘못되어 있었음
+        - CORS 설정 중 Header 설정에 있어서 \*로 허용을 하더라도 인증과 관련된 Authorization의 경우 따로 허용을 해줘야 함
+          - 안그러면 Authorization header 자체를 못받음
+        - 헤더 설정이 완료되어도 Filter의 경우 프리플라이트 요청에는 성공할지라도 Filter에서 그냥 return하여 넘기면 CORS 실패로 간주
       - 쿠키를 받을 시 바로 삭제되는 문제 발생(json으로 토큰 string을 받아서 클라이언트에서 쿠키를 생성하도록 해결)
         - 삭제되면서 전송이 되는 것이 아니고, 새로고침 후 삭제되는 것을 보면 특정 조건에 의해 삭제를 하거나 유지자체를 안할 것
         - 보안적으로 HttpOnly 설정을 했을 경우 클라이언트에서 어떻게 쿠키에 접근해서 헤더에 넣어주는지 모르겠음
@@ -45,6 +48,5 @@
 # DB Schema
 ![image](https://user-images.githubusercontent.com/20275668/146685302-f1babce9-378e-4075-8e7d-12fba64c0110.png)
 
-# API
 
 
